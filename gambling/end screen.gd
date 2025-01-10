@@ -13,6 +13,7 @@ func _process(delta: float) -> void:
 
 
 func _on_button_button_down() -> void:
+	get_tree().paused = false
 	get_tree().reload_current_scene() # Replace with function body.
 
 
