@@ -10,6 +10,7 @@ signal result_found(amount)
 var bet = 0
 var results: Array[int] = [0,0,0]
 var total = 0
+signal jackpot
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -56,6 +57,7 @@ func _process(delta: float) -> void:
 				total = 0
 			else:
 				total = multipler*bet
+				jackpot.emit()
 			result_found.emit(total)
 			bet = 0
 		icon_current_time = 0

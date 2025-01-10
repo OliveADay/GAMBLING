@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://8achokdchpj"]
+[gd_scene load_steps=16 format=3 uid="uid://8achokdchpj"]
 
 [ext_resource type="Texture2D" uid="uid://tax61hb4ftyq" path="res://slots - Sheet.png" id="1_y5h21"]
 [ext_resource type="Script" path="res://icons.gd" id="2_cv32y"]
@@ -19,6 +19,43 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 gradient = SubResource("Gradient_cyocn")
 fill = 1
 fill_from = Vector2(0.454128, 0.481651)
+
+[sub_resource type="Animation" id="Animation_60je7"]
+resource_name = "main"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.466667, 0.6, 0.733333, 0.866667, 0.933333, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(5, 5), Vector2(10, 10), Vector2(5, 5), Vector2(10, 10), Vector2(5, 5), Vector2(10, 10), Vector2(5, 5), Vector2(10, 10), Vector2(5, 5)]
+}
+
+[sub_resource type="Animation" id="Animation_jiuth"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, 5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s7shm"]
+_data = {
+"RESET": SubResource("Animation_jiuth"),
+"main": SubResource("Animation_60je7")
+}
 
 [node name="Slots" type="Node2D"]
 
@@ -237,6 +274,28 @@ theme_override_font_sizes/font_size = 16
 text = "you made too much
 you're kicked out"
 horizontal_alignment = 1
+
+[node name="multiplier" type="Label" parent="."]
+visible = false
+light_mask = 2
+texture_filter = 1
+offset_left = 101.0
+offset_top = 87.0
+offset_right = 141.0
+offset_bottom = 110.0
+rotation = 0.677174
+scale = Vector2(5, 5)
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("7_fu452")
+theme_override_font_sizes/font_size = 16
+text = "2X"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="multiplier"]
+libraries = {
+"": SubResource("AnimationLibrary_s7shm")
+}
 
 [connection signal="result_found" from="slot_machine/icons" to="slot_machine" method="_on_icons_result_found"]
 [connection signal="result_found" from="slot_machine/icons" to="slot_machine/Label" method="_on_icons_result_found"]
