@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://8achokdchpj"]
+[gd_scene load_steps=13 format=3 uid="uid://8achokdchpj"]
 
 [ext_resource type="Texture2D" uid="uid://tax61hb4ftyq" path="res://slots - Sheet.png" id="1_y5h21"]
 [ext_resource type="Script" path="res://icons.gd" id="2_cv32y"]
@@ -6,10 +6,28 @@
 [ext_resource type="Texture2D" uid="uid://b1jmri1pyb5w1" path="res://slotIcons-Sheet.png" id="3_2lixm"]
 [ext_resource type="AudioStream" uid="uid://dbccwuyu3m8ln" path="res://ding.wav" id="4_yqxvj"]
 [ext_resource type="AudioStream" uid="uid://ba0qq2dobew2g" path="res://jackpot.wav" id="5_0wr4q"]
+[ext_resource type="AudioStream" uid="uid://bno3qibsonr7o" path="res://lose.wav" id="7_8rkub"]
 [ext_resource type="FontFile" uid="uid://ctuurcvrgw7di" path="res://04B_11_.TTF" id="7_fu452"]
 [ext_resource type="Script" path="res://money.gd" id="8_lockq"]
+[ext_resource type="Script" path="res://end screen.gd" id="9_s22ig"]
+
+[sub_resource type="Gradient" id="Gradient_cyocn"]
+offsets = PackedFloat32Array(0, 0.623377)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cquvv"]
+gradient = SubResource("Gradient_cyocn")
+fill = 1
+fill_from = Vector2(0.454128, 0.481651)
 
 [node name="Slots" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+light_mask = 4
+z_index = -1
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(15.9712, 8.99994)
 
 [node name="slot_machine" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -45,6 +63,9 @@ stream = ExtResource("4_yqxvj")
 [node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="slot_machine/icons"]
 stream = ExtResource("5_0wr4q")
 
+[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="slot_machine/icons"]
+stream = ExtResource("7_8rkub")
+
 [node name="TextureButton" type="TextureButton" parent="slot_machine"]
 offset_left = 99.0
 offset_top = -84.0
@@ -52,6 +73,7 @@ offset_right = 139.0
 offset_bottom = 62.0
 
 [node name="Label" type="Label" parent="slot_machine"]
+light_mask = 3
 texture_repeat = 1
 offset_left = -287.0
 offset_top = -177.0
@@ -68,6 +90,7 @@ text = "$11"
 script = ExtResource("8_lockq")
 
 [node name="Button" type="Button" parent="slot_machine"]
+light_mask = 2
 offset_left = 154.0
 offset_top = -136.0
 offset_right = 242.0
@@ -82,6 +105,7 @@ text = "Bet $5"
 flat = true
 
 [node name="Button2" type="Button" parent="slot_machine"]
+light_mask = 2
 offset_left = 149.0
 offset_top = -69.0
 offset_right = 251.0
@@ -96,6 +120,7 @@ text = "Bet $20"
 flat = true
 
 [node name="Button3" type="Button" parent="slot_machine"]
+light_mask = 2
 offset_left = 138.0
 offset_top = -2.0
 offset_right = 248.0
@@ -106,14 +131,121 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("7_fu452")
 theme_override_font_sizes/font_size = 16
-text = "Bet $50"
+text = "Bet $100"
 flat = true
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+offset_left = -36.0
+offset_top = -13.0
+offset_right = 4.0
+offset_bottom = 27.0
+scale = Vector2(18.915, 10)
+script = ExtResource("9_s22ig")
+
+[node name="Button" type="Button" parent="Panel"]
+process_mode = 3
+light_mask = 2
+texture_filter = 1
+offset_left = 4.72881
+offset_top = 30.0943
+offset_right = 310.729
+offset_bottom = 54.0943
+scale = Vector2(0.0974408, 0.242065)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("7_fu452")
+theme_override_font_sizes/font_size = 16
+text = "reload and keep gambling"
+flat = true
+
+[node name="Label" type="Label" parent="Panel"]
+light_mask = 2
+texture_filter = 1
+layout_mode = 0
+offset_left = 5.28681
+offset_top = 8.4
+offset_right = 117.287
+offset_bottom = 43.4
+scale = Vector2(0.241529, 0.358858)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("7_fu452")
+theme_override_font_sizes/font_size = 16
+text = "you went 
+backrupt"
+horizontal_alignment = 1
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(291, 157)
+energy = 5.0
+range_item_cull_mask = 2
+texture = SubResource("GradientTexture2D_cquvv")
+texture_scale = 20.0
+
+[node name="PointLight2D" type="PointLight2D" parent="PointLight2D"]
+position = Vector2(-1, -65)
+color = Color(0.989797, 1, 0.604981, 1)
+texture = SubResource("GradientTexture2D_cquvv")
+texture_scale = 10.0
+
+[node name="Panel2" type="Panel" parent="."]
+visible = false
+offset_left = -36.0
+offset_top = -13.0
+offset_right = 4.0
+offset_bottom = 27.0
+scale = Vector2(18.915, 10)
+script = ExtResource("9_s22ig")
+
+[node name="Button" type="Button" parent="Panel2"]
+process_mode = 3
+light_mask = 2
+texture_filter = 1
+offset_left = 3.70077
+offset_top = 30.2
+offset_right = 317.701
+offset_bottom = 54.2
+scale = Vector2(0.0974408, 0.242065)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("7_fu452")
+theme_override_font_sizes/font_size = 16
+text = "return and keep gambling"
+flat = true
+
+[node name="Label" type="Label" parent="Panel2"]
+light_mask = 2
+texture_filter = 1
+layout_mode = 0
+offset_left = 2.22046
+offset_top = 10.7
+offset_right = 230.22
+offset_bottom = 45.7
+scale = Vector2(0.146777, 0.239857)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("7_fu452")
+theme_override_font_sizes/font_size = 16
+text = "you made too much
+you're kicked out"
+horizontal_alignment = 1
 
 [connection signal="result_found" from="slot_machine/icons" to="slot_machine" method="_on_icons_result_found"]
 [connection signal="result_found" from="slot_machine/icons" to="slot_machine/Label" method="_on_icons_result_found"]
 [connection signal="button_down" from="slot_machine/TextureButton" to="slot_machine" method="_on_texture_button_button_down"]
 [connection signal="button_down" from="slot_machine/TextureButton" to="slot_machine/icons" method="_on_button_button_down"]
+[connection signal="backrupt" from="slot_machine/Label" to="Panel" method="_on_label_backrupt"]
 [connection signal="dollar_spent" from="slot_machine/Label" to="slot_machine/icons" method="_on_label_dollar_spent"]
 [connection signal="button_down" from="slot_machine/Button" to="slot_machine/Label" method="_on_5_dollar_down"]
 [connection signal="button_down" from="slot_machine/Button2" to="slot_machine/Label" method="_on_20_dollar_down"]
-[connection signal="button_down" from="slot_machine/Button3" to="slot_machine/Label" method="_on_50_dollar_down"]
+[connection signal="button_down" from="slot_machine/Button3" to="slot_machine/Label" method="_on_100_dollar_down"]
+[connection signal="button_down" from="Panel/Button" to="Panel" method="_on_button_button_down"]
+[connection signal="button_down" from="Panel2/Button" to="Panel2" method="_on_button_button_down"]

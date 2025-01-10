@@ -36,6 +36,9 @@ func _process(delta: float) -> void:
 		if jackpot_played_once:
 			jackpot_played_once = false
 			results = [$icon_1.frame,$icon_2.frame,$icon_3.frame]
+			for result in results:
+				if result == 0:
+					result = 1
 			var multipler:int = 0
 			var was_more = false
 			if results[0] == results[1] or results[0] == results[2]:
@@ -48,15 +51,11 @@ func _process(delta: float) -> void:
 				$AudioStreamPlayer2D2.play()
 			if results[0] != results[1] and results[0] != results[2] and results[1] != results[2]:
 				was_more = false
+				$AudioStreamPlayer2D3.play()
 			if !was_more:
 				total = 0
 			else:
-				print(multipler)
-				print(bet)
-				print(total)
-				print(multipler*bet)
 				total = multipler*bet
-				print(total)
 			result_found.emit(total)
 			bet = 0
 		icon_current_time = 0
