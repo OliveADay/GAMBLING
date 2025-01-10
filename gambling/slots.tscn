@@ -115,6 +115,5 @@ flat = true
 [connection signal="button_down" from="slot_machine/TextureButton" to="slot_machine/icons" method="_on_button_button_down"]
 [connection signal="dollar_spent" from="slot_machine/Label" to="slot_machine/icons" method="_on_label_dollar_spent"]
 [connection signal="button_down" from="slot_machine/Button" to="slot_machine/Label" method="_on_5_dollar_down"]
-[connection signal="button_down" from="slot_machine/Button2" to="slot_machine" method="_on_20_dollar_down"]
 [connection signal="button_down" from="slot_machine/Button2" to="slot_machine/Label" method="_on_20_dollar_down"]
 [connection signal="button_down" from="slot_machine/Button3" to="slot_machine/Label" method="_on_50_dollar_down"]

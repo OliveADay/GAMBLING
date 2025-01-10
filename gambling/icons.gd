@@ -8,7 +8,7 @@ var jackpot_played_once = false
 var rng = RandomNumberGenerator.new()
 signal result_found(amount)
 var bet = 0
-var results = [0,0,0]
+var results: Array[int] = [0,0,0]
 var total = 0
 
 # Called when the node enters the scene tree for the first time.
@@ -28,22 +28,37 @@ func _process(delta: float) -> void:
 			$icon_1.frame = rng.randi_range(0,15)
 			$icon_2.frame = rng.randi_range(0,15)
 			$icon_3.frame = rng.randi_range(0,15)
-			results = [$icon_1.frame,$icon_2.frame,$icon_3.frame]
-			var multipler = 0
-			if results[0] == results[1] or results[0] == results[2]:
-				multipler += results[0]
-			if results[1] == results[2]:
-				multipler += results[1]
-			total+=bet*multipler
 						
 							
 			$AudioStreamPlayer2D.play()
 		spin_current_time-=delta
 	else:
 		if jackpot_played_once:
-			$AudioStreamPlayer2D2.play()
 			jackpot_played_once = false
+			results = [$icon_1.frame,$icon_2.frame,$icon_3.frame]
+			var multipler:int = 0
+			var was_more = false
+			if results[0] == results[1] or results[0] == results[2]:
+				multipler += results[0]
+				was_more = true
+				$AudioStreamPlayer2D2.play()
+			if results[1] == results[2]:
+				multipler += results[1]
+				was_more = true
+				$AudioStreamPlayer2D2.play()
+			if results[0] != results[1] and results[0] != results[2] and results[1] != results[2]:
+				was_more = false
+			if !was_more:
+				total = 0
+			else:
+				print(multipler)
+				print(bet)
+				print(total)
+				print(multipler*bet)
+				total = multipler*bet
+				print(total)
 			result_found.emit(total)
+			bet = 0
 		icon_current_time = 0
 		
 			

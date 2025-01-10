@@ -17,7 +17,7 @@ func _on_20_dollar_down() -> void:
 	dollar_spent.emit(20) # Replace with function body.
 
 
-func _on_50_dollar_down() -> void:
+func _on_100_dollar_down() -> void:
 	dollar_spent.emit(100)
 	money-=100 # Replace with function body.
 
