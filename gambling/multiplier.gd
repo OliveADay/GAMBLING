@@ -6,4 +6,4 @@ func _on_audio_stream_player_2d_finished() -> void:
 
 func _on_icons_jackpot(multipler: int) -> void:
 	visible =true
-	text = "$"+str(multipler) # Replace with function body.
+	text = "X"+str(multipler) # Replace with function body.
